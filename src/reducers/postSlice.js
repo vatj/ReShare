@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  cityList:[
+  cityList: [
     "Stockholm",
     "Göteborg",
     "Kista",
@@ -12,7 +12,7 @@ const initialState = {
     "Västerås",
     "Örebro",
     "Helsingborg",
-    "Kiruna"
+    "Kiruna",
   ],
   categoryList: [
     "all",
@@ -33,11 +33,28 @@ const initialState = {
   selectedCity: "all",
   isLoading: false,
 };
+// export const getPostsList = createAsyncThunk(
+//   "posts/getPostsList",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const response = await fetch("http://localhost:6001/posts");
+//       if (!response.ok) {
+//         throw new Error("Network response was not ok");
+//       }
+
+//       const data = await response.json();
+//       console.log(data);
+//       return data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue("something went wrong");
+//     }
+//   }
+// );
 export const getPostsList = createAsyncThunk(
   "posts/getPostsList",
   async (payload, thunkAPI) => {
     try {
-      const response = await fetch("http://localhost:6001/posts");
+      const response = await fetch("/.netlify/functions/get_posts");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -61,9 +78,9 @@ const posts = createSlice({
     setType: (state, action) => {
       state.selectedType = action.payload;
     },
-    setCity : (state,action) => {
+    setCity: (state, action) => {
       state.selectedCity = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,5 +99,5 @@ const posts = createSlice({
       });
   },
 });
-export const { setCategory, setType,setCity } = posts.actions;
+export const { setCategory, setType, setCity } = posts.actions;
 export default posts.reducer;

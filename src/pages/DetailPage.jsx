@@ -5,12 +5,11 @@ import { FacebookShareButton, FacebookIcon } from "react-share";
 export const DetailPage = () => {
   const { postId } = useParams();
   const postList = useSelector((state) => state.posts.postsList);
-  const post = postList.find((post) => post.id === parseInt(postId));
+  const post = postList.find((post) => post._id === postId);
   console.log("post id:", postId);
   console.log("post found", post);
   return (
-    <>
-      <div className="detail-post-container">
+    <div className="detail-post-container">
         <NavLink to={-1}>
           <button>Go Back</button>
         </NavLink>
@@ -35,6 +34,5 @@ export const DetailPage = () => {
         </div>
         <p></p>
       </div>
-    </>
   );
 };

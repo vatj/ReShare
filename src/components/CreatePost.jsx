@@ -15,9 +15,34 @@ export const CreatePost = () => {
   const cityList = useSelector((state) => state.posts.cityList);
   //   const [image, setImage] = useState(null);
 
+  // const createNewPost = async () => {
+  //   try {
+  //     await fetch("http://localhost:6001/posts", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         createdDate: new Date().getTime(),
+  //         postTitle: title,
+  //         description: description,
+  //         contactInfo: contact,
+  //         type: type,
+  //         city: city,
+  //         category: category,
+  //         //   img:image
+  //       }),
+  //     });
+
+  //     console.log("New post created");
+  //   } catch (error) {
+  //     console.error("Error creating new post:", error);
+  //   }
+  // };
   const createNewPost = async () => {
     try {
-      await fetch("http://localhost:6001/posts", {
+      const url = "/.netlify/functions/create_post";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,11 +59,13 @@ export const CreatePost = () => {
         }),
       });
 
+      const data = await response.json();
+      console.log(data);
       console.log("New post created");
     } catch (error) {
       console.error("Error creating new post:", error);
     }
-  };
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

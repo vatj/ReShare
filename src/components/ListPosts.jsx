@@ -10,6 +10,8 @@ export const ListPosts = () => {
   const category = useSelector((state) => state.posts.selectedCategory);
   const type = useSelector((state) => state.posts.selectedType);
 
+  
+
   useEffect(() => {
     let allfilteredPosts;
 
