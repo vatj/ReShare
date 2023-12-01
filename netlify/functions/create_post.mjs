@@ -28,7 +28,5 @@ export default async (req, context) => {
       statusCode: 500,
       headers: { "content-type": "application/json" },
     });
-  } finally {
-    await mongoClient.close();
   }
 };
