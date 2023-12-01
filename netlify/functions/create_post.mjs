@@ -8,13 +8,11 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI, {
   },
 });
 
-const clientPromise = mongoClient.connect();
-
 export default async (req, context) => {
   const post = await req.json();
 
   try {
-    const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
+    const database = await mongoClient.db(process.env.MONGODB_DATABASE);
     const collection = database.collection(process.env.MONGODB_COLLECTION);
     const result = await collection.insertOne(post);
     return new Response(JSON.stringify(result), {
