@@ -12,9 +12,13 @@ const clientPromise = mongoClient.connect();
 
 export default async (req, context) => {
   try {
+    console.log("clientPromise", await clientPromise);
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
+    console.log("database");
     const collection = database.collection(process.env.MONGODB_COLLECTION);
+    console.log("collection");
     const results = await collection.find({}).limit(10).toArray();
+    console.log("results", results);
     return new Response(JSON.stringify(results), {
       headers: {
         "content-type": "application/json",
@@ -22,7 +26,10 @@ export default async (req, context) => {
       statusCode: 200,
     });
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    return new Response(JSON.stringify({ theError: error.toString() }), {
+      statusCode: 500,
+      headers: { "content-type": "application/json" },
+    });
   } finally {
     await mongoClient.close();
   }

@@ -24,7 +24,10 @@ export default async (req, context) => {
       statusCode: 201,
     });
   } catch (error) {
-    return { statusCode: 500, body: error.toString() };
+    return new Response(JSON.stringify({ theError: error.toString() }), {
+      statusCode: 500,
+      headers: { "content-type": "application/json" },
+    });
   } finally {
     await mongoClient.close();
   }
