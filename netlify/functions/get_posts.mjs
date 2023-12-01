@@ -12,7 +12,6 @@ const clientPromise = mongoClient.connect();
 
 export default async (req, context) => {
   try {
-    console.log("clientPromise", await clientPromise);
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
     console.log("database");
     const collection = database.collection(process.env.MONGODB_COLLECTION);
