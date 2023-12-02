@@ -65,7 +65,7 @@ export const getPostsList = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log(data);
+      console.log("get_posts data : ", data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue("something went wrong");
