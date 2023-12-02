@@ -18,15 +18,18 @@ export default async (req, context) => {
     const collection = await database.collection(
       process.env.MONGODB_COLLECTION
     );
+    console.time("connected to db. finding...");
     const results = await collection.find({}).limit(10).toArray();
-    console.timeEnd("start get handler");
+    console.timeEnd("connected to db. finding...");
 
-    return new Response(JSON.stringify(results), {
+    const test = new Response(JSON.stringify(results), {
       headers: {
         "content-type": "application/json",
       },
       statusCode: 200,
     });
+    console.timeEnd("start get handler");
+    return test;
   } catch (error) {
     return new Response(JSON.stringify({ theError: error.toString() }), {
       statusCode: 500,
