@@ -1,14 +1,13 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const mongoClient = new MongoClient(process.env.MONGODB_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
 export default async (req, context) => {
+  const mongoClient = new MongoClient(process.env.MONGODB_URI, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
   const post = await req.json();
 
   try {
@@ -26,5 +25,7 @@ export default async (req, context) => {
       statusCode: 500,
       headers: { "content-type": "application/json" },
     });
+  } finally {
+    await mongoClient.close();
   }
 };

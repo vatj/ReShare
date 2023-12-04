@@ -2,15 +2,15 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 
 console.log("Init database connection");
 
-const mongoClient = new MongoClient(process.env.MONGODB_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
 export default async (req, context) => {
+  const mongoClient = new MongoClient(process.env.MONGODB_URI, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  });
+
   try {
     console.time("start get handler");
     const database = await mongoClient.db(process.env.MONGODB_DATABASE);
@@ -35,5 +35,7 @@ export default async (req, context) => {
       statusCode: 500,
       headers: { "content-type": "application/json" },
     });
+  } finally {
+    await mongoClient.close();
   }
 };
