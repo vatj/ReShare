@@ -9,5 +9,17 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- <h1>MongoDB with Netlify Functions</h1>
+    <ul id="posts"></ul>
+    <script>
+      (async () => {
+        let results = await fetch("/.netlify/functions/get_posts").then(response => response.json());
+        results.forEach(result => {
+          const listItem = document.createElement("li");
+          listItem.innerText = result.postTitle + " created on " + new Date(result.createdDate);
+          document.getElementById("posts").appendChild(listItem);
+        });
+      })();
+    </script> -->
   </body>
 </html>
